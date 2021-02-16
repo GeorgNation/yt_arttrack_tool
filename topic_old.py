@@ -1,20 +1,33 @@
 # -*- coding: utf-8 -*- 
 
 import re
+import argparse
+import sys
 try:
     import Image, ImageFilter
 except ImportError:
     from PIL import Image, ImageFilter, ImageDraw, ImageFont
 
+def commandline_arg(bytestring):
+    unicode_string = bytestring.decode(sys.getfilesystemencoding())
+    return unicode_string
+
+parser = argparse.ArgumentParser()
+parser.add_argument ('--art', type=commandline_arg, help='artwork path', required=True)
+parser.add_argument ('--track_name', type=commandline_arg, help='track name', required=True)
+parser.add_argument ('--album_name', type=commandline_arg, help='album name', required=True)
+parser.add_argument ('--artists', type=commandline_arg, required=True)
+args = parser.parse_args()
+
 def has_cyrillic(text): 
 	return bool(re.search('[\u0400-\u04FF]', text))
 
-cover_path = "testcover.png"
+cover_path = args.art
 gradient_path = "gradient3.png"
 
-track_name = u"Тестовый альбом"
-artists = [u"test 1", u"тест 2"]
-album_name = u"Тестовый альбом"
+track_name = args.track_name
+artists = [item for item in args.artists.split(';')]
+album_name = args.album_name
 
 
 print(track_name)

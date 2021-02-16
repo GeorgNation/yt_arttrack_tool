@@ -2,6 +2,7 @@ from collections import namedtuple
 from math import sqrt
 import random
 import colorsys
+import argparse
 try:
     import Image
 except ImportError:
@@ -71,16 +72,25 @@ def kmeans(points, k, min_diff):
 
     return clusters
 
-cover_path = "testcover.png"
+def gencover(cover):
+	cover_path = cover
+
+	color = colorz(cover_path, 2)[0]
+	print(color)
+
+	cover = Image.open(cover_path);
+	cover.thumbnail((1080, 1080))
+
+	thumb = Image.new('RGB', (1920, 1080), color);
+
+	thumb.paste(cover, (420,0))
+
+	thumb.save('thumb.png')
 	
-color = colorz(cover_path, 2)[0]
-print(color)
+	print('[YT_ArtTrack_Generator] Thumbnail is created.')
+	
+parser = argparse.ArgumentParser(description="Art Track thumbnail generator")
+parser.add_argument("--path", help="path for artwork")
+args = parser.parse_args()
 
-cover = Image.open(cover_path);
-cover.thumbnail((1080, 1080))
-
-thumb = Image.new('RGB', (1920, 1080), color);
-
-thumb.paste(cover, (420,0))
-
-thumb.save('thumb.png')
+gencover(args.path)

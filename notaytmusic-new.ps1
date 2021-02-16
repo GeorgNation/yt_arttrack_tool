@@ -36,6 +36,8 @@ foreach ($cover in Get-ChildItem -Path "$path*" -Include *.jpg, *.jpeg, *.png | 
     Echo "$alias Found $coverfilename!"
 }
 
+python topic_thumbnail.py --path "$path$coverfilename"
+
 if([string]::IsNullOrEmpty($coverfilename)){
     Echo "$alias Seems like you don't have any .jpg, .jpeg or .png file to make vid. Exiting."
 }else{

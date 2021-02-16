@@ -11,6 +11,10 @@ except ImportError:
 Point = namedtuple('Point', ('coords', 'n', 'ct'))
 Cluster = namedtuple('Cluster', ('points', 'center', 'n'))
 
+def commandline_arg(bytestring):
+    unicode_string = bytestring.decode(sys.getfilesystemencoding())
+    return unicode_string
+
 def get_points(img):
     points = []
     w, h = img.size
@@ -90,7 +94,7 @@ def gencover(cover):
 	print('[YT_ArtTrack_Generator] Thumbnail is created.')
 	
 parser = argparse.ArgumentParser(description="Art Track thumbnail generator")
-parser.add_argument("--path", help="path for artwork", required=True)
+parser.add_argument("--path", help="path for artwork", required=True, type=commandline_arg)
 args = parser.parse_args()
 
 gencover(args.path)

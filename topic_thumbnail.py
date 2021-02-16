@@ -90,7 +90,7 @@ def gencover(cover):
 	print('[YT_ArtTrack_Generator] Thumbnail is created.')
 	
 parser = argparse.ArgumentParser(description="Art Track thumbnail generator")
-parser.add_argument("--path", help="path for artwork", required=true)
+parser.add_argument("--path", help="path for artwork", required=True)
 args = parser.parse_args()
 
 gencover(args.path)

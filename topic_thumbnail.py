@@ -3,6 +3,7 @@ from math import sqrt
 import random
 import colorsys
 import argparse
+import sys
 try:
     import Image
 except ImportError:
